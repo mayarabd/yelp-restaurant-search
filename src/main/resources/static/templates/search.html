@@ -1,0 +1,66 @@
+<div class="container">
+
+    <section class="col-xs-12 col-sm-6 col-md-12">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h1><img height="80px" width="160px" src="https://s3-media2.fl.yelpcdn.com/assets/srv0/yelp_styleguide/163d47317ef0/assets/img/logos/logo_desktop_xlarge@2x.png">
+                    <span>Restaurant Search</span>
+                </h1>
+                <p class="lead">Powered By Apache Solr</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <form class="form-horizontal" name="form" role="form" ng-submit="search(query)" novalidate>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-sm-offset-4 col-sm-4">
+                            <div class="input-group">
+                                <input class="form-control" placeholder="Search Restaurants" type="text" id="search"
+                                       name="search" class="form-control" ng-model="query" required>
+                                <span class="input-group-addon">
+                                    <button ng-disabled="form.$invalid" class="fa fa-search" style="background-color: #eee; border: 0"></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-5 col-sm-4">
+                            <button class="btn" ng-disabled="form.$invalid" ng-click="searchWithAmbiance=true" style="cursor: default; background-color: #f5f5f5; color: #757575; width: 90px; font-size: 13px; font-weight: bold">Ambiance</button>
+                            <button class="btn" ng-disabled="form.$invalid" ng-click="searchWithService=true" style="cursor: default; background-color: #f5f5f5; color: #757575; width: 90px; font-size: 13px; font-weight: bold">Service</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+        <hr>
+    </section>
+
+    <div class="mb20" ng-show="hasResults">
+        <h2>Search Results</h2>
+        <h3 class="lead"><strong class="text-danger">{{businesses.length}}</strong> results were found for <strong class="text-danger">{{displayQuery}}</strong><strong ng-show="displaySearchType" class="text-danger"> with {{displaySearchType}}</strong></h3>
+    </div>
+
+    <section class="col-xs-12 col-sm-6 col-md-12" ng-show="hasResults">
+        <article class="search-result row" ng-repeat="business in businesses">
+            <div class="col-xs-12 col-sm-12 col-md-3">
+                <a href="#" title="Lorem ipsum" class="thumbnail"><img src="http://lorempixel.com/250/140/food" alt="Lorem ipsum" /></a>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-2">
+                <ul class="meta-search">
+                    <li><i class="fa fa-bar-chart"></i> <span> Score: {{business.newScore | number : 4}} </span></li>
+                    <li><i class="fa fa-star"></i> <span>{{business.stars}}</span></li>
+                    <li><i class="fa fa-pencil"></i> <span>{{business.reviewCount}} reviews</span></li>
+                </ul>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-7 excerpet">
+                <h3><a href="#" title="">{{$index + 1}}. {{business.name}}</a></h3>
+                <h5> <i class="fa fa-map-marker"></i>&nbsp;<a href="#">{{business.address}}</a></h5>
+                <p ng-repeat="category in business.categories">{{category}}</p>
+            </div>
+            <span class="clearfix borda"></span>
+        </article>
+    </section>
+
+</div>
